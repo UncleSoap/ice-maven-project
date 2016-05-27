@@ -1,0 +1,32 @@
+<project name="pengyun-models" default="all" basedir=".">
+	<property name="ice.model.dir" value="${basedir}/src/main/resources/ice-model/" />
+	<echo message="${ice.model.dir}" />
+	<property name="ice.output.dir.java" value="${basedir}/ice-generated-src-java" />
+	<property name="ice.output.dir.cpp" value="${basedir}/ice-generated-src-cpp" />
+
+	<target name="clean-ice-message" description="Removes ice generated files.">
+		<delete dir="${ice.output.dir.java}" />
+		<delete dir="${ice.output.dir.cpp}" />
+	</target>
+
+	<!-- target: init -->
+	<target name="init" description="Sets up the initial structure." depends="clean-ice-message">
+		<mkdir dir="${ice.output.dir.java}" />
+		<mkdir dir="${ice.output.dir.cpp}" />
+	</target>
+
+	<target name="compile-ice-message-java" description="Compile ice message for java" depends="init">
+		<apply executable="slice2java" parallel="false">
+			<arg value="--output-dir" />
+			<arg value="${ice.output.dir.java}" />
+			<arg value="--debug" />
+			<fileset dir="${ice.model.dir}" includes="*.ice" />
+		</apply>
+	</target>
+	
+	
+
+	<target name="clean" depends="clean-ice-message" />
+	<target name="all" depends="compile-ice-message-java" />
+</project>
+

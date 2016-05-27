@@ -1,0 +1,13 @@
+.classpath
+.project
+.settings
+target
+*.log
+*.log.
+ice-generated-src-java/
+ice-generated-src-cpp/
+src/main/java/**
+**/*.o
+**/*.so
+/bin
+/target
